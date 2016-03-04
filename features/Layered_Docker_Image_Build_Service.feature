@@ -7,6 +7,9 @@ Feature: Layered Docker Image Build Service for Fedora
     contributors to create and maintain Dockerfiles from which those images will
     be generated.
 
+    Background: Fedora 24
+        Given the target release is Fedora 24
+
     @maintainer
     Scenario: packaging guidelines for Dockerfiles
         Given a maintainer wants to build a new Docker image
@@ -54,11 +57,34 @@ Feature: Layered Docker Image Build Service for Fedora
          Then the image file is automatically synchronized around the Fedora
               mirrors infrastructure.
 
-    @releng, @docekr_user
+    @releng, @docker_user
     Scenario: built Docker images should be in Upstream Docker registry
         Given a new Docker image is built in Koji
          Then the image is uploaded to hub.docker.com
           And the Fedora image is available to the docker client side tools.
+
+
+    @releng
+    Scenario: Building RPM with the same name as Docker image doesn't led to data loss
+        Given there is an RPM package called "jenkins"
+          And a Docker image called "jenkins"
+         When `fedpkg build jenkins` is executed
+         Then the newly built Jenkins RPM is available in Koji
+          And previous versions of Jenkins RPM continue to be available in Koji
+          And all versions of Jenkins image continue to be available in Koji.
+
+    @releng
+    Scenario: Building Docker image with the same name as RPM doesn't cause data loss
+        Given there is a Docker image called "jenkins"
+          And an RPM package called "jenkins"
+         When `fedpkg container-build jenkins` is executed
+         Then the newly built Jenkins image is available in Koji
+          And previous versions of Jenkins images continue to be available in Koji
+          And all versions of Jenkins RPM continue to be available in Koji.
+
+
+    Background: Fedora 25
+        Given the target release is Fedora 25
 
     @releng
     Scenario: automatic Docker image rebuilds in case of new RPM build
@@ -82,24 +108,6 @@ Feature: Layered Docker Image Build Service for Fedora
          When the Apache image is updated
          Then a new build of the Jenkins image is trigerred automatically by Koji.
 
-    @releng
-    Scenario: Building RPM with the same name as Docker image doesn't led to data loss
-        Given there is an RPM package called "jenkins"
-          And a Docker image called "jenkins"
-         When `fedpkg build jenkins` is executed
-         Then the newly built Jenkins RPM is available in Koji
-          And previous versions of Jenkins RPM continue to be available in Koji
-          And all versions of Jenkins image continue to be available in Koji.
-
-    @releng
-    Scenario: Building Docker image with the same name as RPM doesn't cause data loss
-        Given there is a Docker image called "jenkins"
-          And an RPM package called "jenkins"
-         When `fedpkg container-build jenkins` is executed
-         Then the newly built Jenkins image is available in Koji
-          And previous versions of Jenkins images continue to be available in Koji
-          And all versions of Jenkins RPM continue to be available in Koji.
-
     @maintainer
     Scenario: Docker images can be signed
         Given there is a Docker image built
@@ -115,11 +123,6 @@ Feature: Layered Docker Image Build Service for Fedora
               build the current image
           And the user is able to verify signatures of individual RPM packages
               used to build this image.
-
-
-
-
-
 
 
 
