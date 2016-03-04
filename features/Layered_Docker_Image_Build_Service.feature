@@ -10,10 +10,10 @@ Feature: Layered Docker Image Build Service for Fedora
 
     Scenario: packaging guidelines for Dockerfiles
         Given a contributor wants to build a new Docker image
-          And a Packaging Guidelines for Dockerfiles exists
          When they want to check what Dockerfile syntax is considered
               best-practice
-         Then they will consult the Packaging Guidelines for Dockerfiles
+         Then a Packaging Guidelines for Dockerfiles exists
+          And they will consult the Packaging Guidelines for Dockerfiles
               document.
 
     Scenario: store Dockerfiles in dist-git
@@ -23,9 +23,9 @@ Feature: Layered Docker Image Build Service for Fedora
 
     Scenario: build a Docker image in Koji
         Given a contributor wants to build a new Docker image
-          And a `fedpkg container-build` command exists
          When they use the `fedpkg container-build`command
-         Then Koji produces the resulting Docker image.
+         Then a `fedpkg container-build` command exists
+          And when executed Koji produces the resulting Docker image.
 
     Scenario: ensure Docker image content comes from Fedora
         Given a maintainer has built a new image in Koji
