@@ -4,5 +4,5 @@ Feature: Closing account
 
     Scenario: Closing account is not possible
         Given Alex is an account owner
-        When he wants to close their account
+        When Alex wants to close their account
         Then closing an account is not possible
