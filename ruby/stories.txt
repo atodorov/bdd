@@ -1,0 +1,151 @@
+Background:
+
+These are my stories and features for module06 (Intro to Cucumber)
+from my *QA Automation with Ruby 101* training at:
+https://github.com/atodorov/qa-automation-ruby-101/
+
+
+Idea: I want to build a banking application for Kitties because cute
+kitten pictures rule the Internet! My customers will be able to use their
+kitty-coins for everything related to cats!
+
+
+# Story 1 (yellow): A new user can open an account in KittyBank
+
+
+## Rule (blue):
+
+    Everybody who is a cat owner will receive a bonus
+
+## Example 1 (green):
+
+    Jessica is a cat owner and wants to open account in KittyBank.
+    She is allowed to do so and immediately receives a bonus!
+
+## Question (red):
+
+    How much kitty-coins is the bonus?
+
+## Rule (blue):
+
+    Dog owners are not allowed to open accounts
+
+## Example 2 (green):
+
+    Jake owns a dog. When he tries to open an account with KittyBank
+    he is not allowed to.
+
+## Question (red):
+
+    How do we even know what kind of animal a person has ?
+
+## Question (red):
+
+    What if the user owns both cat(s) and dog(s)?
+
+## Question (red):
+
+    How about owners of other animals?
+
+## Question (red):
+
+    How about people who don't own animals?
+
+
+
+# Story 2 (yellow): account owner can deposit kitty-coins
+
+## Rule (blue):
+
+    Owning 1 cat automatically adds 1 kitty-coin to your account every month
+
+## Example 1 (green):
+
+    Alex owns 3 cats. Every month his balance is increased by 3 kitty-coins.
+
+## Question (red):
+
+    How do we know how many cats the account owner has?
+
+## Question (red):
+
+    What if a cat escapes (or dies) ?
+
+## Rule (blue):
+
+    Physical money can be converted to kitty-coins
+
+## Example 2 (green):
+
+    Alfred wants to deposit 100 BGN into his KittyBank account. These will be
+    converted to kitty-coins before being deposited to his account.
+
+## Question (red):
+
+    What is going to be the conversion rate BGN-KTC ?
+
+## Question (red):
+
+    How about conversion rate for other currencies like USD ?
+
+## Question (red):
+
+    Do external factors influence conversion rate for physical money ?
+
+
+# Story 3 (yellow): account owner can close their account
+
+## Rule (blue):
+
+    This is not possible! Why would anyone want to close their account ?!?
+
+## Example 1 (green):
+
+    Anyone who is an account owner tries to close their account in KittyBank.
+    They are denied because once you open an account it can't be closed!
+
+
+# Story 4 (yellow): kitty-coin owners can spend them for anything related to cats
+
+## Question (red):
+
+    How do you define "anything" ?
+
+## Question (red):
+
+    How do you get 3rd parties to participate in KTC exchange?
+
+## Rule (blue):
+
+    Kitty-coins can be transfered to other account owners
+
+## Example 1 (green):
+
+    Alex owns 100 kitty-coins while Jane has 50. Alex transfers 20 KTC to Jane
+    and now he owns 80 while she owns 70!
+
+
+
+# Summary
+
+* Story #1 has 5 questions (red) over 2 examples
+* Story #2 has 5 questions (red) over 2 examples
+* Story #3 has 0 questions over 1 example
+* Story #4 has 2 questions unrelated to 1 example
+
+So for the first iteration of our KittyBank application we are going to develop the
+following functionality:
+
+- Story #3 - close an account - not possible because this is what boss says
+- Story #4 - kitty-coins can be transfered to other account owners. For now we'll
+  assume that anyone can open an account!
+
+The `features/` directory contains Gherkin description and Cucumber implementation
+of the selected stories.
+
+
+Then we should seek to answer the existing questions and figure out how to proceed
+with development of KittyBank!
+
+Bonus tip: one of the stories selected for implementation is missing specification
+for important behavior. What is it!
