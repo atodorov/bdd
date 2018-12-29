@@ -1,29 +1,33 @@
 require 'banking'
 require 'rspec/expectations'
 
-@accounts = {}
+Before do
+    @accounts = {}
+end
 
-Given("{string} is an account owner") do |who|
+Given("{word} is an account owner") do |who|
     @accounts[who] = MyBank.new
 end
 
-Given("{string} has {int} kitty-coins") do |who, coins|
+Given("{word} has {int} kitty-coins") do |who, coins|
     @accounts[who].balance = coins
 end
 
 
-When("{string} wants to close their account") do |who|
-    @accounts[who].close
+When("{word} wants to close their account") do |who|
+    @last_owner = who
+    expect { @accounts[who].close }.to raise_error(NotImplementedError)
 end
 
-Then("closing an account is not possible") do
-  pending # Write code here that turns the phrase above into concrete actions
+Then("{word} account is still open") do |who|
+    expect(@accounts.include?(who)).to be true
+    expect(@accounts[who]).not_to be nil
 end
 
-When("{string} transfers {float} kitty-coins to {string}") do |sender, coins, receiver|
+When("{word} transfers {int} kitty-coins to {word}") do |sender, coins, receiver|
     @accounts[sender].transfer(coins, @accounts[receiver])
 end
 
-Then("{string} now owns {float} kitty-coins") do |who, coins|
+Then("{word} now owns {int} kitty-coins") do |who, coins|
     expect(@accounts[who].balance).to eq(coins)
 end
